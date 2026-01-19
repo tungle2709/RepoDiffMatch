@@ -33,7 +33,11 @@ class RepoComparer {
       
       const files = response.data.tree.filter(item => 
         item.type === 'blob' && 
-        /\.(js|ts|py|java|cpp|c|h|cs|php|rb|go|rs)$/i.test(item.path)
+        /\.(js|ts|py|java|cpp|c|h|cs|php|rb|go|rs)$/i.test(item.path) &&
+        !item.path.includes('node_modules/') &&
+        !item.path.includes('.git/') &&
+        !item.path.includes('dist/') &&
+        !item.path.includes('build/')
       );
       
       spinner.succeed(`Found ${files.length} source files`);
@@ -115,6 +119,7 @@ class RepoComparer {
     ]);
 
     const similarities = [];
+    const identicalFiles = [];
     const spinner = ora('Analyzing file similarities').start();
 
     for (const file1 of files1) {
@@ -130,7 +135,13 @@ class RepoComparer {
         const normalized2 = this.normalizeCode(content2);
         const similarity = this.calculateSimilarity(normalized1, normalized2);
 
-        if (similarity > 0.7) {
+        if (similarity === 1.0) {
+          // Skip identical files but track them
+          identicalFiles.push({
+            file1: file1.path,
+            file2: file2.path
+          });
+        } else if (similarity > 0.7) {
           similarities.push({
             file1: file1.path,
             file2: file2.path,
@@ -141,11 +152,25 @@ class RepoComparer {
     }
 
     spinner.succeed('Analysis complete');
-    return similarities;
+    return { similarities, identicalFiles };
   }
 
-  displayResults(similarities) {
+  displayResults(results) {
+    const { similarities, identicalFiles } = results;
+    
     console.log(chalk.yellow(`\n📊 Similarity Report\n`));
+    
+    if (identicalFiles.length > 0) {
+      console.log(chalk.blue(`Identical files (skipped): ${identicalFiles.length}`));
+      identicalFiles.slice(0, 3).forEach(match => {
+        console.log(chalk.gray(`  ${match.file1} ↔ ${match.file2}`));
+      });
+      if (identicalFiles.length > 3) {
+        console.log(chalk.gray(`  ... and ${identicalFiles.length - 3} more\n`));
+      } else {
+        console.log('');
+      }
+    }
     
     if (similarities.length === 0) {
       console.log(chalk.green('✅ No significant similarities found'));
@@ -167,6 +192,7 @@ class RepoComparer {
     
     console.log(chalk.blue(`📈 Summary:`));
     console.log(chalk.gray(`  Similar files: ${similarities.length}`));
+    console.log(chalk.gray(`  Identical files (skipped): ${identicalFiles.length}`));
     console.log(chalk.gray(`  High similarity (>90%): ${highSimilarity}`));
     console.log(chalk.gray(`  Average similarity: ${(avgSimilarity * 100).toFixed(1)}%`));
     
@@ -191,8 +217,8 @@ program
   .action(async (repo1, repo2) => {
     try {
       const comparer = new RepoComparer();
-      const similarities = await comparer.compareRepositories(repo1, repo2);
-      comparer.displayResults(similarities);
+      const results = await comparer.compareRepositories(repo1, repo2);
+      comparer.displayResults(results);
     } catch (error) {
       console.error(chalk.red(`Error: ${error.message}`));
       process.exit(1);

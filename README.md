@@ -11,6 +11,7 @@ A powerful command-line tool to compare GitHub repositories and detect potential
 - Advanced similarity calculation using Levenshtein distance algorithm
 - Color-coded similarity reports with visual indicators
 - Automated plagiarism risk assessment
+- Auto-skip identical files and common directories (node_modules, dist, build)
 - No authentication required
 
 ## Quick Start
@@ -67,6 +68,11 @@ Comparing repositories:
 
 Similarity Report
 
+Identical files (skipped): 3
+  package.json ↔ package.json
+  .gitignore ↔ .gitignore
+  LICENSE ↔ LICENSE
+
 85.2% similarity
   src/component.js ↔ src/component/index.js
 
@@ -75,6 +81,7 @@ Similarity Report
 
 Summary:
   Similar files: 12
+  Identical files (skipped): 3
   High similarity (>90%): 2
   Average similarity: 73.4%
 
@@ -113,10 +120,12 @@ repodm --version
 ## How It Works
 
 1. **Repository Fetching**: Uses GitHub API to recursively fetch all source files
-2. **Code Normalization**: Removes comments, normalizes whitespace, strips formatting
-3. **Similarity Analysis**: Calculates Levenshtein distance between normalized code
-4. **Risk Assessment**: Analyzes patterns and provides plagiarism risk evaluation
-5. **Report Generation**: Creates detailed, color-coded similarity reports
+2. **Smart Filtering**: Automatically excludes node_modules, dist, build, and .git directories
+3. **Code Normalization**: Removes comments, normalizes whitespace, strips formatting
+4. **Similarity Analysis**: Calculates Levenshtein distance between normalized code
+5. **Identical File Detection**: Identifies and skips 100% identical files
+6. **Risk Assessment**: Analyzes patterns and provides plagiarism risk evaluation
+7. **Report Generation**: Creates detailed, color-coded similarity reports
 
 ## Requirements
 
