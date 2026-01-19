@@ -14,9 +14,35 @@ A powerful command-line tool to compare GitHub repositories and detect potential
 - Auto-skip identical files and common directories (node_modules, dist, build)
 - No authentication required
 
-## Quick Start
+## Installation
 
-### Installation
+### Quick Install (Recommended)
+
+**macOS/Linux:**
+```bash
+curl -fsSL https://raw.githubusercontent.com/tungle2709/repo-compare/main/install.sh | bash
+```
+
+**Windows (PowerShell):**
+```powershell
+iwr -useb https://raw.githubusercontent.com/tungle2709/repo-compare/main/install.ps1 | iex
+```
+
+### Package Managers
+
+**Homebrew (macOS/Linux):**
+```bash
+# Coming soon - Homebrew formula pending
+brew tap tungle2709/repodiffmatch
+brew install repodiffmatch
+```
+
+**npm (Cross-platform):**
+```bash
+npm install -g repodiffmatch
+```
+
+### Manual Installation
 
 1. **Clone the repository:**
 ```bash
@@ -29,10 +55,14 @@ cd repo-compare
 npm install
 ```
 
-3. **Make globally available (optional):**
+3. **Make globally available:**
 ```bash
 npm link
 ```
+
+### Prerequisites
+- Node.js (v14.0.0 or higher)
+- Internet connection for GitHub API access
 
 ### Basic Usage
 
@@ -174,6 +204,18 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Open an issue on GitHub
 - Check existing issues for solutions
 - Review this README for setup instructions
+
+### Uninstall
+
+**Quick uninstall:**
+```bash
+curl -fsSL https://raw.githubusercontent.com/tungle2709/repo-compare/main/uninstall.sh | bash
+```
+
+**npm:**
+```bash
+npm uninstall -g repodiffmatch
+```
 
 ---
 
