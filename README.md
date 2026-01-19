@@ -1,29 +1,24 @@
 # Repo Compare CLI
 
-🔍 A powerful command-line tool to compare GitHub repositories and detect potential plagiarism by analyzing source code similarities.
+A powerful command-line tool to compare GitHub repositories and detect potential plagiarism by analyzing source code similarities.
 
-## ✨ Features
+## Features
 
-- 🚀 Compare any two public GitHub repositories
-- 📁 Analyze multiple source code formats (JS, TS, Python, Java, C++, C#, PHP, Ruby, Go, Rust)
-- 🧹 Smart code normalization (removes comments, whitespace, formatting)
-- 📊 Advanced similarity calculation using Levenshtein distance algorithm
-- 🎨 Color-coded similarity reports with visual indicators
-- ⚠️ Automated plagiarism risk assessment
-- 🔧 GitHub API integration with rate limit handling
+- Compare any two public GitHub repositories
+- Analyze multiple source code formats (JS, TS, Python, Java, C++, C#, PHP, Ruby, Go, Rust)
+- Smart code normalization (removes comments, whitespace, formatting)
+- Advanced similarity calculation using Levenshtein distance algorithm
+- Color-coded similarity reports with visual indicators
+- Automated plagiarism risk assessment
+- GitHub API integration with rate limit handling
 
-## 🚀 Quick Start
-
-### Prerequisites
-- Node.js (v14 or higher)
-- npm or yarn
-- Git
+## Quick Start
 
 ### Installation
 
 1. **Clone the repository:**
 ```bash
-git clone https://github.com/yourusername/repo-compare.git
+git clone https://github.com/tungle2709/repo-compare.git
 cd repo-compare
 ```
 
@@ -60,7 +55,7 @@ node index.js compare expressjs/express koajs/koa
 node index.js compare microsoft/vscode atom/atom
 ```
 
-## 🔐 Authentication (Recommended)
+## Authentication (Recommended)
 
 Set up GitHub token for higher API rate limits:
 
@@ -78,21 +73,21 @@ set GITHUB_TOKEN=your_github_token_here
 3. Select "public_repo" scope
 4. Copy the token
 
-## 📊 Understanding Results
+## Understanding Results
 
 ### Similarity Levels
-- 🔴 **>90%**: High plagiarism risk
-- 🟡 **80-90%**: Moderate similarity 
-- 🔵 **70-80%**: Low-moderate similarity
-- ✅ **<70%**: Minimal similarity (not displayed)
+- **>90%**: High plagiarism risk
+- **80-90%**: Moderate similarity 
+- **70-80%**: Low-moderate similarity
+- **<70%**: Minimal similarity (not displayed)
 
 ### Sample Output
 ```
-🔍 Comparing repositories:
+Comparing repositories:
   Source: facebook/react
   Target: preactjs/preact
 
-📊 Similarity Report
+Similarity Report
 
 85.2% similarity
   src/component.js ↔ src/component/index.js
@@ -100,15 +95,15 @@ set GITHUB_TOKEN=your_github_token_here
 78.9% similarity  
   src/hooks.js ↔ hooks/src/index.js
 
-📈 Summary:
+Summary:
   Similar files: 12
   High similarity (>90%): 2
   Average similarity: 73.4%
 
-⚠️ Moderate similarity detected
+Moderate similarity detected
 ```
 
-## 🛠️ Advanced Usage
+## Advanced Usage
 
 ### Command Options
 ```bash
@@ -134,7 +129,7 @@ node index.js --version
 - Go (.go)
 - Rust (.rs)
 
-## 🔧 How It Works
+## How It Works
 
 1. **Repository Fetching**: Uses GitHub API to recursively fetch all source files
 2. **Code Normalization**: Removes comments, normalizes whitespace, strips formatting
@@ -142,13 +137,13 @@ node index.js --version
 4. **Risk Assessment**: Analyzes patterns and provides plagiarism risk evaluation
 5. **Report Generation**: Creates detailed, color-coded similarity reports
 
-## 📋 Requirements
+## Requirements
 
 - **Node.js**: v14.0.0 or higher
 - **Internet**: Required for GitHub API access
 - **GitHub Token**: Optional but recommended for rate limits
 
-## 🚨 Limitations
+## Limitations
 
 - Only works with **public repositories**
 - Subject to **GitHub API rate limits** (60 requests/hour without token, 5000 with token)
@@ -156,7 +151,7 @@ node index.js --version
 - Large repositories may take longer to analyze
 - Does not detect refactored or heavily modified code
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
@@ -164,11 +159,11 @@ node index.js --version
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🆘 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
@@ -187,10 +182,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ### Getting Help
 
-- 📧 Open an issue on GitHub
-- 💬 Check existing issues for solutions
-- 📖 Review this README for setup instructions
+- Open an issue on GitHub
+- Check existing issues for solutions
+- Review this README for setup instructions
 
 ---
 
-Made with ❤️ for developers who value code integrity
+Made with care for developers who value code integrity
