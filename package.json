@@ -1,0 +1,21 @@
+{
+  "name": "repo-compare",
+  "version": "1.0.0",
+  "description": "CLI tool to compare GitHub repositories for plagiarism detection",
+  "main": "index.js",
+  "bin": {
+    "repo-compare": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "commander": "^9.4.1",
+    "axios": "^1.6.0",
+    "chalk": "^4.1.2",
+    "ora": "^5.4.1"
+  },
+  "keywords": ["cli", "github", "plagiarism", "comparison"],
+  "author": "",
+  "license": "MIT"
+}
