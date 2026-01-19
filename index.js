@@ -171,7 +171,7 @@ class RepoComparer {
 }
 
 program
-  .name('repo-compare')
+  .name('repodm')
   .description('Compare GitHub repositories for plagiarism detection')
   .version('1.0.0');
 

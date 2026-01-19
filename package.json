@@ -1,10 +1,10 @@
 {
-  "name": "repo-compare",
+  "name": "repodiffmatch",
   "version": "1.0.0",
   "description": "CLI tool to compare GitHub repositories for plagiarism detection",
   "main": "index.js",
   "bin": {
-    "repo-compare": "./index.js"
+    "repodm": "./index.js"
   },
   "scripts": {
     "start": "node index.js"

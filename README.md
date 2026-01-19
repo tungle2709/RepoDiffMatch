@@ -1,4 +1,4 @@
-# Repo Compare CLI
+# RepoDiffMatch
 
 A powerful command-line tool to compare GitHub repositories and detect potential plagiarism by analyzing source code similarities.
 
@@ -36,23 +36,12 @@ npm link
 
 ```bash
 # Direct execution
-node index.js compare owner1/repo1 owner2/repo2
+repodm compare owner1/repo1 owner2/repo2
 
-# If globally installed
-repo-compare compare owner1/repo1 owner2/repo2
-```
-
-### Examples
-
-```bash
-# Compare React frameworks
-node index.js compare facebook/react preactjs/preact
-
-# Compare web frameworks
-node index.js compare expressjs/express koajs/koa
-
-# Compare similar projects
-node index.js compare microsoft/vscode atom/atom
+# Examples
+repodm compare facebook/react preactjs/preact
+repodm compare expressjs/express koajs/koa
+repodm compare microsoft/vscode atom/atom
 ```
 
 ## Authentication (Recommended)
@@ -108,13 +97,13 @@ Moderate similarity detected
 ### Command Options
 ```bash
 # Basic comparison
-node index.js compare <repo1> <repo2>
+repodm compare <repo1> <repo2>
 
 # Get help
-node index.js --help
+repodm --help
 
 # Check version
-node index.js --version
+repodm --version
 ```
 
 ### Supported File Types
