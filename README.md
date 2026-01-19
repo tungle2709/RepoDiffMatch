@@ -5,12 +5,13 @@ A powerful command-line tool to compare GitHub repositories and detect potential
 ## Features
 
 - Compare any two public GitHub repositories
+- Accept both GitHub URLs and owner/repo format
 - Analyze multiple source code formats (JS, TS, Python, Java, C++, C#, PHP, Ruby, Go, Rust)
 - Smart code normalization (removes comments, whitespace, formatting)
 - Advanced similarity calculation using Levenshtein distance algorithm
 - Color-coded similarity reports with visual indicators
 - Automated plagiarism risk assessment
-- GitHub API integration with rate limit handling
+- No authentication required
 
 ## Quick Start
 
@@ -35,32 +36,20 @@ npm link
 ### Basic Usage
 
 ```bash
-# Direct execution
-repodm compare owner1/repo1 owner2/repo2
-
-# Examples
+# Using owner/repo format
 repodm compare facebook/react preactjs/preact
+
+# Using full GitHub URLs
+repodm compare https://github.com/facebook/react https://github.com/preactjs/preact
+
+# More examples
 repodm compare expressjs/express koajs/koa
-repodm compare microsoft/vscode atom/atom
+repodm compare https://github.com/microsoft/vscode https://github.com/atom/atom
 ```
 
-## Authentication (Recommended)
+## Authentication
 
-Set up GitHub token for higher API rate limits:
-
-```bash
-# Linux/macOS
-export GITHUB_TOKEN=your_github_token_here
-
-# Windows
-set GITHUB_TOKEN=your_github_token_here
-```
-
-**To get a GitHub token:**
-1. Go to GitHub Settings → Developer settings → Personal access tokens
-2. Generate new token (classic)
-3. Select "public_repo" scope
-4. Copy the token
+No authentication required! The tool works with GitHub's public API without needing any tokens or credentials.
 
 ## Understanding Results
 
@@ -96,8 +85,11 @@ Moderate similarity detected
 
 ### Command Options
 ```bash
-# Basic comparison
+# Basic comparison (owner/repo format)
 repodm compare <repo1> <repo2>
+
+# Using GitHub URLs
+repodm compare <github-url1> <github-url2>
 
 # Get help
 repodm --help
@@ -130,12 +122,11 @@ repodm --version
 
 - **Node.js**: v14.0.0 or higher
 - **Internet**: Required for GitHub API access
-- **GitHub Token**: Optional but recommended for rate limits
 
 ## Limitations
 
 - Only works with **public repositories**
-- Subject to **GitHub API rate limits** (60 requests/hour without token, 5000 with token)
+- Subject to **GitHub API rate limits** (60 requests/hour per IP)
 - Focuses on **structural similarity**, not semantic analysis
 - Large repositories may take longer to analyze
 - Does not detect refactored or heavily modified code
@@ -157,12 +148,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ### Common Issues
 
 **"API rate limit exceeded"**
-- Set up GitHub token authentication
 - Wait for rate limit reset (1 hour)
+- Try again later or use fewer requests
 
 **"Repository not found"**
 - Ensure repository is public
-- Check repository name format: `owner/repo`
+- Check repository name format: `owner/repo` or full GitHub URL
 - Verify repository exists
 
 **"No source files found"**

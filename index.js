@@ -7,17 +7,28 @@ const ora = require('ora');
 
 class RepoComparer {
   constructor() {
-    this.githubToken = process.env.GITHUB_TOKEN;
+    // Removed GitHub token requirement
+  }
+
+  parseGitHubUrl(input) {
+    // Handle both URL formats and owner/repo format
+    if (input.includes('github.com')) {
+      const match = input.match(/github\.com\/([^\/]+)\/([^\/\?#]+)/);
+      if (match) {
+        return { owner: match[1], repo: match[2] };
+      }
+    } else if (input.includes('/')) {
+      const [owner, repo] = input.split('/');
+      return { owner, repo };
+    }
+    throw new Error(`Invalid GitHub repository format: ${input}`);
   }
 
   async getRepoFiles(owner, repo) {
     const spinner = ora(`Fetching files from ${owner}/${repo}`).start();
     try {
       const response = await axios.get(
-        `https://api.github.com/repos/${owner}/${repo}/git/trees/main?recursive=1`,
-        {
-          headers: this.githubToken ? { Authorization: `token ${this.githubToken}` } : {}
-        }
+        `https://api.github.com/repos/${owner}/${repo}/git/trees/main?recursive=1`
       );
       
       const files = response.data.tree.filter(item => 
@@ -39,8 +50,7 @@ class RepoComparer {
         `https://api.github.com/repos/${owner}/${repo}/git/blobs/${sha}`,
         {
           headers: {
-            Accept: 'application/vnd.github.v3.raw',
-            ...(this.githubToken ? { Authorization: `token ${this.githubToken}` } : {})
+            Accept: 'application/vnd.github.v3.raw'
           }
         }
       );
@@ -96,25 +106,25 @@ class RepoComparer {
     console.log(chalk.gray(`  Source: ${repo1}`));
     console.log(chalk.gray(`  Target: ${repo2}\n`));
 
-    const [owner1, name1] = repo1.split('/');
-    const [owner2, name2] = repo2.split('/');
+    const parsed1 = this.parseGitHubUrl(repo1);
+    const parsed2 = this.parseGitHubUrl(repo2);
 
     const [files1, files2] = await Promise.all([
-      this.getRepoFiles(owner1, name1),
-      this.getRepoFiles(owner2, name2)
+      this.getRepoFiles(parsed1.owner, parsed1.repo),
+      this.getRepoFiles(parsed2.owner, parsed2.repo)
     ]);
 
     const similarities = [];
     const spinner = ora('Analyzing file similarities').start();
 
     for (const file1 of files1) {
-      const content1 = await this.getFileContent(owner1, name1, file1.sha);
+      const content1 = await this.getFileContent(parsed1.owner, parsed1.repo, file1.sha);
       if (!content1) continue;
 
       const normalized1 = this.normalizeCode(content1);
       
       for (const file2 of files2) {
-        const content2 = await this.getFileContent(owner2, name2, file2.sha);
+        const content2 = await this.getFileContent(parsed2.owner, parsed2.repo, file2.sha);
         if (!content2) continue;
 
         const normalized2 = this.normalizeCode(content2);
@@ -177,7 +187,7 @@ program
 
 program
   .command('compare <repo1> <repo2>')
-  .description('Compare two GitHub repositories (format: owner/repo)')
+  .description('Compare two GitHub repositories (format: owner/repo or full GitHub URL)')
   .action(async (repo1, repo2) => {
     try {
       const comparer = new RepoComparer();
