@@ -156,71 +156,71 @@ repodm --version
                                    │
                                    ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                     Command Parser (Commander.js)              │
-│  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐ │
-│  │   compare cmd   │  │   --help cmd    │  │  --version cmd  │ │
-│  └─────────────────┘  └─────────────────┘  └─────────────────┘ │
+│                     Command Parser (Commander.js)               │
+│  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐  │
+│  │   compare cmd   │  │   --help cmd    │  │  --version cmd  │  │
+│  └─────────────────┘  └─────────────────┘  └─────────────────┘  │
 └─────────────────────────────────────────────────────────────────┘
                                    │
                                    ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                      RepoComparer Class                        │
+│                      RepoComparer Class                         │
 │                                                                 │
-│  ┌─────────────────┐           ┌─────────────────┐             │
-│  │  parseGitHubUrl │           │ compareRepos    │             │
-│  │                 │           │                 │             │
-│  │ • URL parsing   │           │ • Batch process │             │
-│  │ • Format check  │           │ • Memory mgmt   │             │
-│  └─────────────────┘           └─────────────────┘             │
+│  ┌─────────────────┐            ┌─────────────────┐             │
+│  │  parseGitHubUrl │            │ compareRepos    │             │
+│  │                 │            │                 │             │
+│  │ • URL parsing   │            │ • Batch process │             │
+│  │ • Format check  │            │ • Memory mgmt   │             │
+│  └─────────────────┘            └─────────────────┘             │
 └─────────────────────────────────────────────────────────────────┘
                                    │
                                    ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │                     GitHub API Integration                      │
 │                                                                 │
-│  ┌─────────────────┐           ┌─────────────────┐             │
-│  │  getRepoFiles   │           │ getFileContent  │             │
-│  │                 │           │                 │             │
-│  │ • Fetch tree    │           │ • Get blob data │             │
-│  │ • Filter files  │           │ • Handle errors │             │
-│  │ • Error handle  │           │ • Size limits   │             │
-│  └─────────────────┘           └─────────────────┘             │
+│  ┌─────────────────┐            ┌─────────────────┐             │
+│  │  getRepoFiles   │            │ getFileContent  │             │
+│  │                 │            │                 │             │
+│  │ • Fetch tree    │            │ • Get blob data │             │
+│  │ • Filter files  │            │ • Handle errors │             │
+│  │ • Error handle  │            │ • Size limits   │             │
+│  └─────────────────┘            └─────────────────┘             │
 └─────────────────────────────────────────────────────────────────┘
                                    │
                                    ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │                    Code Analysis Engine                         │
 │                                                                 │
-│  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐ │
-│  │ normalizeCode   │  │calculateSimilar │  │ quickSimilarity │ │
-│  │                 │  │                 │  │                 │ │
+│  ┌──────────────────┐  ┌─────────────────┐  ┌─────────────────┐ │
+│  │ normalizeCode    │  │calculateSimilar │  │ quickSimilarity │ │
+│  │                  │  │                 │  │                 │ │
 │  │ • Remove comments│  │ • Levenshtein   │  │ • Char frequency│ │
-│  │ • Strip format  │  │ • Distance calc │  │ • Large files   │ │
-│  │ • Size limits   │  │ • Similarity %  │  │ • Fast compare  │ │
-│  └─────────────────┘  └─────────────────┘  └─────────────────┘ │
+│  │ • Strip format   │  │ • Distance calc │  │ • Large files   │ │
+│  │ • Size limits    │  │ • Similarity %  │  │ • Fast compare  │ │
+│  └──────────────────┘  └─────────────────┘  └─────────────────┘ │
 └─────────────────────────────────────────────────────────────────┘
                                    │
                                    ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │                      Results Processing                         │
 │                                                                 │
-│  ┌─────────────────┐           ┌─────────────────┐             │
-│  │ displayResults  │           │ Risk Assessment │             │
-│  │                 │           │                 │             │
-│  │ • Color coding  │           │ • High (>80%)   │             │
-│  │ • Formatting    │           │ • Moderate      │             │
-│  │ • Statistics    │           │ • Low risk      │             │
-│  └─────────────────┘           └─────────────────┘             │
+│  ┌─────────────────┐            ┌─────────────────┐             │
+│  │ displayResults  │            │ Risk Assessment │             │
+│  │                 │            │                 │             │
+│  │ • Color coding  │            │ • High (>80%)   │             │
+│  │ • Formatting    │            │ • Moderate      │             │
+│  │ • Statistics    │            │ • Low risk      │             │
+│  └─────────────────┘            └─────────────────┘             │
 └─────────────────────────────────────────────────────────────────┘
                                    │
                                    ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │                        Terminal Output                          │
 │                                                                 │
-│  • Similarity percentages with color coding                    │
-│  • File-by-file comparison results                             │
-│  • Summary statistics and risk assessment                      │
-│  • Error messages with solutions                               │
+│   • Similarity percentages with color coding                    │
+│   • File-by-file comparison results                             │
+│   • Summary statistics and risk assessment                      │
+│   • Error messages with solutions                               │
 └─────────────────────────────────────────────────────────────────┘
 
 Data Flow:
